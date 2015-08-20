@@ -1,0 +1,8 @@
+    <script type="text/javascript" src="{{ static_url('/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('/js/jquery.cookie.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('/js/bootstrap.min.js') }}"></script>
+    {% for f in js_files %}
+    <script type="text/javascript" src="{{ static_url(escape(f)) }}"></script>
+    {% end %}
+  </body>
+</html>

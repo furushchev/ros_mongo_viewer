@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='{{ static_url("css/bootstrap.min.css") }}' />
+    <link rel='stylesheet' href='{{ static_url("css/bootstrap-theme.min.css") }}' />
+    <link rel='stylesheet' href='{{ static_url("css/style.css") }}' />
+    {% for f in css_files %}
+    <link rel='stylesheet' href="{{ static_url(escape(f)) }}" />
+    {% end %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  </head>
+  <body>
+    {% block content %}{% end %}
+    <script type="text/javascript" src="{{ static_url('js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/bootstrap.min.js') }}"></script>
+    {% for f in js_files %}
+    <script type="text/javascript" src="{{ static_url(escape(f)) }}"></script>
+    {% end %}
+  </body>
+</html>
+
+

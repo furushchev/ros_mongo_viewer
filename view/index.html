@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="get" class="form">
+  <input type="text" name="type" placeholder="message type" class="form-inline input-md">
+  <input type="hidden" name="p" value="{{current_page}}">
+  <input type="submit" value="検索" class="form-inline btn btn-primary">
+</form>
+
+<p>{{ len(results) }} query found.</p>
+
+<nav>
+  <ul class="pagination">
+    <li>
+      <a href="/?p={{max(0,current_page-1)}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for i in range(max(0,current_page-5),min(total_page, current_page+5)+1) %}
+      {% if i == current_page %}
+    <li class="active"><a href="#">{{i}}<span class="sr-only">(current)</span></a></li>
+      {% else %}
+    <li><a href="/?p={{i}}">{{i}}</a></li>
+      {% end %}
+    {% end %}
+    <li>
+      <a href="/?p={{min(current_page+1, total_page)}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-bordered"
+               style="table-layout:fixed;">
+            <thead>
+                <tr>
+                  {% for l in labels %}
+                  <th>{{ l }}</th>
+                  {% end %}
+                </tr>
+            </thead>
+            <tbody style="overflow-y:auto;">
+              {% for doc in results %}
+              <tr>
+                {% for l in labels %}
+                <td>{% raw doc.getByDot(l) %}</td>
+                {% end %}
+              </tr>
+              {% end %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% end %}
